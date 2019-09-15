@@ -17,6 +17,13 @@ class TasksController extends Controller
     {
         // $tasks = Task::all();
         $tasks = Task::where('user_id', auth()->id())->get();
+        
+        return response()->json($tasks);
+    }
+
+    public function authenticatedTask($user_id)
+    {
+        $tasks = Task::where('user_id', $user_id)->get();
         return response()->json($tasks);
     }
 
