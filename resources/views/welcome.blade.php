@@ -89,40 +89,26 @@
             @endif
 
             <div class="content">
-                {{-- <div class="title m-b-md">
-                    Laravel
-                </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div> --}}
+							<div class="container">
+								<div class="row">
+										<div class="col-md-6 mb-5">
+												<h5>Say hello to</h5>
+												<div class="title">
+													Taskman
+												</div>
+												<p>
+													A visual, feature-rich productivity app for busy people to keep their schedule on track.
+													Taskman app is your simple, effective and beautiful way to plan and complete tasks.
+												</p>
+												<a href="{{ route('register') }}" class="btn btn-primary">GET STARTED</a>
+										</div>
+										<div class="col-md-6">
+												<img src="frame.jpg" class="img-thumbnail rounded" alt="App Image">
+										</div>
+								</div>
+							</div>
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 mb-5">
-                            <h5>Say hello to</h5>
-                            <div class="title">
-                              Taskman
-														</div>
-														<p>
-															A visual, feature-rich productivity app for busy people to keep their schedule on track.
-															Taskman app is your simple, effective and beautiful way to plan and complete tasks.
-														</p>
-														<a href="{{ route('register') }}" class="btn btn-primary">GET STARTED</a>
-														<a href="{{ route('login') }}" class="btn btn-success">LOGIN</a>
-                        </div>
-                        <div class="col-md-6">
-                            <img src="frame.jpg" class="img-thumbnail rounded" alt="App Image">
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </body>

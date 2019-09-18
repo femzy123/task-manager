@@ -11,7 +11,8 @@
       <div class="row">
           <div class="col-md-3">
             <div class="font-weight-bold mb-3">Todo</div>
-              <div class="p-3 todoBox overflow-auto">
+
+              <draggable :lists="tasks" :options="{}" :elements="'div'" class="p-3 todoBox overflow-auto">
                 <div class="card mb-3" v-for="task in tasks" :key="task.id">
                   <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
 
@@ -20,13 +21,15 @@
                       <div><span class="text-primary"><i class="fa fa-eye" style="font-size:24px"></i></span>
                       <span class="float-right" @click="deleteTask(task.id)"><i class="fa fa-trash" style="font-size:24px;color:red"></i></span></div>
                   </div>
-              </div>
-              </div>
+                </div>
+              </draggable>
+
           </div>
 
           <div class="col-md-3">
             <div class="font-weight-bold mb-3">Ongoing</div>
-              <div class="p-3 todoBox overflow-auto">
+
+              <draggable :lists="tasks" :options="{}" :elements="'div'" class="p-3 todoBox overflow-auto">
                 <div class="card mb-3" v-for="task in tasks" :key="task.id">
                   <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
 
@@ -35,13 +38,15 @@
                       <div><span class="text-primary"><i class="fa fa-eye" style="font-size:24px"></i></span>
                       <span class="float-right" @click="deleteTask(task.id)"><i class="fa fa-trash" style="font-size:24px;color:red"></i></span></div>
                   </div>
-              </div>
-              </div>
+                </div>
+              </draggable>
+
           </div>
 
           <div class="col-md-3">
             <div class="font-weight-bold mb-3">Review</div>
-              <div class="p-3 todoBox overflow-auto">
+
+              <draggable :lists="tasks" :options="{}" :elements="'div'" class="p-3 todoBox overflow-auto">
                 <div class="card mb-3" v-for="task in tasks" :key="task.id">
                   <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
 
@@ -50,13 +55,15 @@
                       <div><span class="text-primary"><i class="fa fa-eye" style="font-size:24px"></i></span>
                       <span class="float-right" @click="deleteTask(task.id)"><i class="fa fa-trash" style="font-size:24px;color:red"></i></span></div>
                   </div>
-              </div>
-              </div>
+                </div>
+              </draggable>
+
           </div>
 
           <div class="col-md-3">
             <div class="font-weight-bold mb-3">Done</div>
-              <div class="p-3 todoBox overflow-auto">
+
+              <draggable :lists="tasks" :options="{}" :elements="'div'" class="p-3 todoBox overflow-auto">
                 <div class="card mb-3" v-for="task in tasks" :key="task.id">
                   <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
 
@@ -65,8 +72,9 @@
                       <div><span class="text-primary"><i class="fa fa-eye" style="font-size:24px"></i></span>
                       <span class="float-right" @click="deleteTask(task.id)"><i class="fa fa-trash" style="font-size:24px;color:red"></i></span></div>
                   </div>
-              </div>
-              </div>
+                </div>
+              </draggable>
+
           </div>
       </div>
     </div>
@@ -117,8 +125,12 @@
 
 <script>
 import axios from 'axios'
+import draggable from 'vuedraggable'
 
     export default {
+      components: {
+            draggable,
+        },
         data() {
             return {
               user: [],
