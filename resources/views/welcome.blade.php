@@ -8,16 +8,21 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Styles -->
         <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
+            body {
+                background-image: url('bg.gif');
+                background-size: cover;
+                background-repeat: no-repeat;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                display: block;
+                color: #fff;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
-                height: 100vh;
                 margin: 0;
             }
 
@@ -42,7 +47,8 @@
             }
 
             .content {
-                text-align: center;
+								/* text-align: center; */
+								width:60%;
             }
 
             .title {
@@ -50,7 +56,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #fff;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -81,7 +87,7 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
+                {{-- <div class="title m-b-md">
                     Laravel
                 </div>
 
@@ -94,6 +100,25 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://vapor.laravel.com">Vapor</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
+                </div> --}}
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 mb-5">
+                            <h5>Say hello to</h5>
+                            <div class="title">
+                              Taskman
+														</div>
+														<p>
+															A visual, feature-rich productivity app for busy people to keep their schedule on track.
+															Taskman app is your simple, effective and beautiful way to plan and complete tasks.
+														</p>
+														<button class="btn btn-primary btn-lg">GET STARTED</button>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="frame.jpg" class="img-thumbnail rounded" alt="App Image">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
