@@ -113,7 +113,8 @@
 															A visual, feature-rich productivity app for busy people to keep their schedule on track.
 															Taskman app is your simple, effective and beautiful way to plan and complete tasks.
 														</p>
-														<button class="btn btn-primary btn-lg">GET STARTED</button>
+														<a href="{{ route('register') }}" class="btn btn-primary">GET STARTED</a>
+														<a href="{{ route('login') }}" class="btn btn-success">LOGIN</a>
                         </div>
                         <div class="col-md-6">
                             <img src="frame.jpg" class="img-thumbnail rounded" alt="App Image">
