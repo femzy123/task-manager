@@ -12,15 +12,15 @@
           <div class="col-md-3">
             <div class="font-weight-bold mb-3">Todo</div>
 
-              <draggable :lists="tasks" :options="{}" :elements="'div'" class="p-3 todoBox overflow-auto">
-                <div class="card mb-3" v-for="task in tasks" :key="task.id">
+              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'div'" class="p-3 todoBox overflow-auto" @add="onAdd($event, todo)">
+                <div class="card mb-3" v-for="(task, index) in todoTasks" :key="task.id" :data-id="task.id">
                   <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
 
                   <div class="card-body">
                       <p class="card-text">{{ task.description }}</p>
                       <div><span class="text-primary"><i class="fa fa-eye" style="font-size:24px"></i></span>
                       <span class="float-right" @click="deleteTask(task.id)"><i class="fa fa-trash" style="font-size:24px;color:red"></i></span></div>
-                  </div>
+                  </div> 
                 </div>
               </draggable>
 
@@ -29,8 +29,8 @@
           <div class="col-md-3">
             <div class="font-weight-bold mb-3">Ongoing</div>
 
-              <draggable :lists="tasks" :options="{}" :elements="'div'" class="p-3 todoBox overflow-auto">
-                <div class="card mb-3" v-for="task in tasks" :key="task.id">
+              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'div'" class="p-3 todoBox overflow-auto" @add="onAdd">
+                <div class="card mb-3" v-for="task in ongoingTasks" :key="task.id" :data-id="task.id">
                   <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
 
                   <div class="card-body">
@@ -46,8 +46,8 @@
           <div class="col-md-3">
             <div class="font-weight-bold mb-3">Review</div>
 
-              <draggable :lists="tasks" :options="{}" :elements="'div'" class="p-3 todoBox overflow-auto">
-                <div class="card mb-3" v-for="task in tasks" :key="task.id">
+              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'div'" class="p-3 todoBox overflow-auto" @add="onAdd">
+                <div class="card mb-3" v-for="task in reviewTasks" :key="task.id" :data-id="task.id">
                   <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
 
                   <div class="card-body">
@@ -63,8 +63,16 @@
           <div class="col-md-3">
             <div class="font-weight-bold mb-3">Done</div>
 
-              <draggable :lists="tasks" :options="{}" :elements="'div'" class="p-3 todoBox overflow-auto">
-                <div class="card mb-3" v-for="task in tasks" :key="task.id">
+            <!-- <ul class="list-group">
+              <li class="list-group-item mb-4" v-for="task in tasks" :key="task.id">
+                <h6>{{ task.title }}</h6>
+                <p>{{ task.description }}</p>
+
+              </li>
+            </ul> -->
+
+              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'div'" class="p-3 todoBox overflow-auto" @add="onAdd">
+                <div class="card mb-3" v-for="task in doneTasks" :key="task.id" :data-id="task.id">
                   <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
 
                   <div class="card-body">
@@ -135,6 +143,10 @@ import draggable from 'vuedraggable'
             return {
               user: [],
               tasks: [],
+              todoTasks:[],
+              ongoingTasks:[],
+              reviewTasks:[],
+              doneTasks:[],
               title: '',
               description: '',
               dueDate: ''
@@ -145,6 +157,30 @@ import draggable from 'vuedraggable'
             .then((response)=> {
                 console.log(response.data)
                 this.tasks = response.data
+
+                for(var i=0; i < this.tasks.length; i++){
+                  if(this.tasks[i].status == "todo"){
+                    this.todoTasks.push(this.tasks[i])
+                  }
+                }
+
+                for(var i=0; i < this.tasks.length; i++){
+                  if(this.tasks[i].status == "ongoing"){
+                    this.ongoingTasks.push(this.tasks[i])
+                  }
+                }
+
+                for(var i=0; i < this.tasks.length; i++){
+                  if(this.tasks[i].status == "review"){
+                    this.reviewTasks.push(this.tasks[i])
+                  }
+                }
+
+                for(var i=0; i < this.tasks.length; i++){
+                  if(this.tasks[i].status == "done"){
+                    this.doneTasks.push(this.tasks[i])
+                  }
+                }
             })
 
             axios.get('/api/user')
@@ -171,13 +207,16 @@ import draggable from 'vuedraggable'
 
           },
           deleteTask(id) {
-          axios.delete('/api/tasks/'+ id)
-          .then((response)=>{
-            console.log("deleted")
-          })
-          window.location.reload()
-        
-        },
+            axios.delete('/api/tasks/'+ id)
+            .then((response)=>{
+              console.log("deleted")
+            })
+            window.location.reload()
+          
+          },
+          onAdd(event) {
+            console.log(event.item)
+          }
       }
         
     }
@@ -190,5 +229,9 @@ import draggable from 'vuedraggable'
   border-radius: 5px;
   box-shadow: 0px -1px 0px 2px whitesmoke;
   height: 70vh;
+}
+
+.my-handle {
+  cursor:move;
 }
 </style>

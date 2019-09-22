@@ -1967,6 +1967,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1977,6 +1985,10 @@ __webpack_require__.r(__webpack_exports__);
     return {
       user: [],
       tasks: [],
+      todoTasks: [],
+      ongoingTasks: [],
+      reviewTasks: [],
+      doneTasks: [],
       title: '',
       description: '',
       dueDate: ''
@@ -1988,6 +2000,30 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/tasks').then(function (response) {
       console.log(response.data);
       _this.tasks = response.data;
+
+      for (var i = 0; i < _this.tasks.length; i++) {
+        if (_this.tasks[i].status == "todo") {
+          _this.todoTasks.push(_this.tasks[i]);
+        }
+      }
+
+      for (var i = 0; i < _this.tasks.length; i++) {
+        if (_this.tasks[i].status == "ongoing") {
+          _this.ongoingTasks.push(_this.tasks[i]);
+        }
+      }
+
+      for (var i = 0; i < _this.tasks.length; i++) {
+        if (_this.tasks[i].status == "review") {
+          _this.reviewTasks.push(_this.tasks[i]);
+        }
+      }
+
+      for (var i = 0; i < _this.tasks.length; i++) {
+        if (_this.tasks[i].status == "done") {
+          _this.doneTasks.push(_this.tasks[i]);
+        }
+      }
     });
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/user').then(function (response) {
       console.log(response.data);
@@ -2016,6 +2052,9 @@ __webpack_require__.r(__webpack_exports__);
         console.log("deleted");
       });
       window.location.reload();
+    },
+    onAdd: function onAdd(event) {
+      console.log(event.item);
     }
   }
 });
@@ -6479,7 +6518,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.todoBox[data-v-299e239e] {\r\n  background: #fff;\r\n  border: 0.5px solid whitesmoke;\r\n  border-radius: 5px;\r\n  box-shadow: 0px -1px 0px 2px whitesmoke;\r\n  height: 70vh;\n}\r\n", ""]);
+exports.push([module.i, "\n.todoBox[data-v-299e239e] {\r\n  background: #fff;\r\n  border: 0.5px solid whitesmoke;\r\n  border-radius: 5px;\r\n  box-shadow: 0px -1px 0px 2px whitesmoke;\r\n  height: 70vh;\n}\n.my-handle[data-v-299e239e] {\r\n  cursor:move;\n}\r\n", ""]);
 
 // exports
 
@@ -41681,53 +41720,70 @@ var render = function() {
               "draggable",
               {
                 staticClass: "p-3 todoBox overflow-auto",
-                attrs: { lists: _vm.tasks, options: {}, elements: "div" }
+                attrs: {
+                  lists: _vm.tasks,
+                  options: { animation: 200, group: "status" },
+                  elements: "div"
+                },
+                on: {
+                  add: function($event) {
+                    return _vm.onAdd($event, _vm.todo)
+                  }
+                }
               },
-              _vm._l(_vm.tasks, function(task) {
-                return _c("div", { key: task.id, staticClass: "card mb-3" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _c("span", { staticClass: "font-weight-bold" }, [
-                      _vm._v(_vm._s(task.title))
-                    ]),
-                    _c("small", { staticClass: "float-right" }, [
-                      _c("strong", [_vm._v("Due:")]),
-                      _vm._v(" " + _vm._s(task.dueDate))
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("p", { staticClass: "card-text" }, [
-                      _vm._v(_vm._s(task.description))
+              _vm._l(_vm.todoTasks, function(task, index) {
+                return _c(
+                  "div",
+                  {
+                    key: task.id,
+                    staticClass: "card mb-3",
+                    attrs: { "data-id": task.id }
+                  },
+                  [
+                    _c("div", { staticClass: "card-header" }, [
+                      _c("span", { staticClass: "font-weight-bold" }, [
+                        _vm._v(_vm._s(task.title))
+                      ]),
+                      _c("small", { staticClass: "float-right" }, [
+                        _c("strong", [_vm._v("Due:")]),
+                        _vm._v(" " + _vm._s(task.dueDate))
+                      ])
                     ]),
                     _vm._v(" "),
-                    _c("div", [
-                      _c("span", { staticClass: "text-primary" }, [
-                        _c("i", {
-                          staticClass: "fa fa-eye",
-                          staticStyle: { "font-size": "24px" }
-                        })
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(_vm._s(task.description))
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          staticClass: "float-right",
-                          on: {
-                            click: function($event) {
-                              return _vm.deleteTask(task.id)
-                            }
-                          }
-                        },
-                        [
+                      _c("div", [
+                        _c("span", { staticClass: "text-primary" }, [
                           _c("i", {
-                            staticClass: "fa fa-trash",
-                            staticStyle: { "font-size": "24px", color: "red" }
+                            staticClass: "fa fa-eye",
+                            staticStyle: { "font-size": "24px" }
                           })
-                        ]
-                      )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass: "float-right",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteTask(task.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-trash",
+                              staticStyle: { "font-size": "24px", color: "red" }
+                            })
+                          ]
+                        )
+                      ])
                     ])
-                  ])
-                ])
+                  ]
+                )
               }),
               0
             )
@@ -41747,53 +41803,66 @@ var render = function() {
               "draggable",
               {
                 staticClass: "p-3 todoBox overflow-auto",
-                attrs: { lists: _vm.tasks, options: {}, elements: "div" }
+                attrs: {
+                  lists: _vm.tasks,
+                  options: { animation: 200, group: "status" },
+                  elements: "div"
+                },
+                on: { add: _vm.onAdd }
               },
-              _vm._l(_vm.tasks, function(task) {
-                return _c("div", { key: task.id, staticClass: "card mb-3" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _c("span", { staticClass: "font-weight-bold" }, [
-                      _vm._v(_vm._s(task.title))
-                    ]),
-                    _c("small", { staticClass: "float-right" }, [
-                      _c("strong", [_vm._v("Due:")]),
-                      _vm._v(" " + _vm._s(task.dueDate))
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("p", { staticClass: "card-text" }, [
-                      _vm._v(_vm._s(task.description))
+              _vm._l(_vm.ongoingTasks, function(task) {
+                return _c(
+                  "div",
+                  {
+                    key: task.id,
+                    staticClass: "card mb-3",
+                    attrs: { "data-id": task.id }
+                  },
+                  [
+                    _c("div", { staticClass: "card-header" }, [
+                      _c("span", { staticClass: "font-weight-bold" }, [
+                        _vm._v(_vm._s(task.title))
+                      ]),
+                      _c("small", { staticClass: "float-right" }, [
+                        _c("strong", [_vm._v("Due:")]),
+                        _vm._v(" " + _vm._s(task.dueDate))
+                      ])
                     ]),
                     _vm._v(" "),
-                    _c("div", [
-                      _c("span", { staticClass: "text-primary" }, [
-                        _c("i", {
-                          staticClass: "fa fa-eye",
-                          staticStyle: { "font-size": "24px" }
-                        })
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(_vm._s(task.description))
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          staticClass: "float-right",
-                          on: {
-                            click: function($event) {
-                              return _vm.deleteTask(task.id)
-                            }
-                          }
-                        },
-                        [
+                      _c("div", [
+                        _c("span", { staticClass: "text-primary" }, [
                           _c("i", {
-                            staticClass: "fa fa-trash",
-                            staticStyle: { "font-size": "24px", color: "red" }
+                            staticClass: "fa fa-eye",
+                            staticStyle: { "font-size": "24px" }
                           })
-                        ]
-                      )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass: "float-right",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteTask(task.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-trash",
+                              staticStyle: { "font-size": "24px", color: "red" }
+                            })
+                          ]
+                        )
+                      ])
                     ])
-                  ])
-                ])
+                  ]
+                )
               }),
               0
             )
@@ -41813,53 +41882,66 @@ var render = function() {
               "draggable",
               {
                 staticClass: "p-3 todoBox overflow-auto",
-                attrs: { lists: _vm.tasks, options: {}, elements: "div" }
+                attrs: {
+                  lists: _vm.tasks,
+                  options: { animation: 200, group: "status" },
+                  elements: "div"
+                },
+                on: { add: _vm.onAdd }
               },
-              _vm._l(_vm.tasks, function(task) {
-                return _c("div", { key: task.id, staticClass: "card mb-3" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _c("span", { staticClass: "font-weight-bold" }, [
-                      _vm._v(_vm._s(task.title))
-                    ]),
-                    _c("small", { staticClass: "float-right" }, [
-                      _c("strong", [_vm._v("Due:")]),
-                      _vm._v(" " + _vm._s(task.dueDate))
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("p", { staticClass: "card-text" }, [
-                      _vm._v(_vm._s(task.description))
+              _vm._l(_vm.reviewTasks, function(task) {
+                return _c(
+                  "div",
+                  {
+                    key: task.id,
+                    staticClass: "card mb-3",
+                    attrs: { "data-id": task.id }
+                  },
+                  [
+                    _c("div", { staticClass: "card-header" }, [
+                      _c("span", { staticClass: "font-weight-bold" }, [
+                        _vm._v(_vm._s(task.title))
+                      ]),
+                      _c("small", { staticClass: "float-right" }, [
+                        _c("strong", [_vm._v("Due:")]),
+                        _vm._v(" " + _vm._s(task.dueDate))
+                      ])
                     ]),
                     _vm._v(" "),
-                    _c("div", [
-                      _c("span", { staticClass: "text-primary" }, [
-                        _c("i", {
-                          staticClass: "fa fa-eye",
-                          staticStyle: { "font-size": "24px" }
-                        })
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(_vm._s(task.description))
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          staticClass: "float-right",
-                          on: {
-                            click: function($event) {
-                              return _vm.deleteTask(task.id)
-                            }
-                          }
-                        },
-                        [
+                      _c("div", [
+                        _c("span", { staticClass: "text-primary" }, [
                           _c("i", {
-                            staticClass: "fa fa-trash",
-                            staticStyle: { "font-size": "24px", color: "red" }
+                            staticClass: "fa fa-eye",
+                            staticStyle: { "font-size": "24px" }
                           })
-                        ]
-                      )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass: "float-right",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteTask(task.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-trash",
+                              staticStyle: { "font-size": "24px", color: "red" }
+                            })
+                          ]
+                        )
+                      ])
                     ])
-                  ])
-                ])
+                  ]
+                )
               }),
               0
             )
@@ -41879,53 +41961,66 @@ var render = function() {
               "draggable",
               {
                 staticClass: "p-3 todoBox overflow-auto",
-                attrs: { lists: _vm.tasks, options: {}, elements: "div" }
+                attrs: {
+                  lists: _vm.tasks,
+                  options: { animation: 200, group: "status" },
+                  elements: "div"
+                },
+                on: { add: _vm.onAdd }
               },
-              _vm._l(_vm.tasks, function(task) {
-                return _c("div", { key: task.id, staticClass: "card mb-3" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _c("span", { staticClass: "font-weight-bold" }, [
-                      _vm._v(_vm._s(task.title))
-                    ]),
-                    _c("small", { staticClass: "float-right" }, [
-                      _c("strong", [_vm._v("Due:")]),
-                      _vm._v(" " + _vm._s(task.dueDate))
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("p", { staticClass: "card-text" }, [
-                      _vm._v(_vm._s(task.description))
+              _vm._l(_vm.doneTasks, function(task) {
+                return _c(
+                  "div",
+                  {
+                    key: task.id,
+                    staticClass: "card mb-3",
+                    attrs: { "data-id": task.id }
+                  },
+                  [
+                    _c("div", { staticClass: "card-header" }, [
+                      _c("span", { staticClass: "font-weight-bold" }, [
+                        _vm._v(_vm._s(task.title))
+                      ]),
+                      _c("small", { staticClass: "float-right" }, [
+                        _c("strong", [_vm._v("Due:")]),
+                        _vm._v(" " + _vm._s(task.dueDate))
+                      ])
                     ]),
                     _vm._v(" "),
-                    _c("div", [
-                      _c("span", { staticClass: "text-primary" }, [
-                        _c("i", {
-                          staticClass: "fa fa-eye",
-                          staticStyle: { "font-size": "24px" }
-                        })
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(_vm._s(task.description))
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          staticClass: "float-right",
-                          on: {
-                            click: function($event) {
-                              return _vm.deleteTask(task.id)
-                            }
-                          }
-                        },
-                        [
+                      _c("div", [
+                        _c("span", { staticClass: "text-primary" }, [
                           _c("i", {
-                            staticClass: "fa fa-trash",
-                            staticStyle: { "font-size": "24px", color: "red" }
+                            staticClass: "fa fa-eye",
+                            staticStyle: { "font-size": "24px" }
                           })
-                        ]
-                      )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass: "float-right",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteTask(task.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-trash",
+                              staticStyle: { "font-size": "24px", color: "red" }
+                            })
+                          ]
+                        )
+                      ])
                     ])
-                  ])
-                ])
+                  ]
+                )
               }),
               0
             )
