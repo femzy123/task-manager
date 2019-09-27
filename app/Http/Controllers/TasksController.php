@@ -100,9 +100,10 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
-            'title'=> 'required',
-            'dueDate' => 'required',
-            'user_id' => 'required'
+            // 'title'=> 'required',
+            // 'dueDate' => 'required',
+            'user_id' => 'required',
+            'status' => 'required'
         ]);
 
         if($validator->fails()){
@@ -110,10 +111,11 @@ class TasksController extends Controller
             return $response;
         } else {
             $task = Task::find($id);
-            $task->title = $request->input('title');
-            $task->description = $request->input('description');
-            $task->dueDate = $request->input('dueDate');
+            // $task->title = $request->input('title');
+            // $task->description = $request->input('description');
+            // $task->dueDate = $request->input('dueDate');
             $task->user_id = $request->input('user_id');
+            $task->status = $request->input('status');
             $task->save();
 
             return response()->json($task);

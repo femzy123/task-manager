@@ -1991,7 +1991,8 @@ __webpack_require__.r(__webpack_exports__);
       doneTasks: [],
       title: '',
       description: '',
-      dueDate: ''
+      dueDate: '',
+      status: ''
     };
   },
   mounted: function mounted() {
@@ -2053,8 +2054,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       window.location.reload();
     },
-    onAdd: function onAdd(event) {
-      console.log(event.item);
+    onAdd: function onAdd(event, status) {
+      // console.log(event.item)
+      var id = event.item.getAttribute('data-id');
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/tasks/' + id, {
+        user_id: this.user.id,
+        status: status
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function (response) {// console.log("Job well done")
+      });
     }
   }
 });
@@ -41727,7 +41738,7 @@ var render = function() {
                 },
                 on: {
                   add: function($event) {
-                    return _vm.onAdd($event, _vm.todo)
+                    return _vm.onAdd($event, "todo")
                   }
                 }
               },
@@ -41808,7 +41819,11 @@ var render = function() {
                   options: { animation: 200, group: "status" },
                   elements: "div"
                 },
-                on: { add: _vm.onAdd }
+                on: {
+                  add: function($event) {
+                    return _vm.onAdd($event, "ongoing")
+                  }
+                }
               },
               _vm._l(_vm.ongoingTasks, function(task) {
                 return _c(
@@ -41887,7 +41902,11 @@ var render = function() {
                   options: { animation: 200, group: "status" },
                   elements: "div"
                 },
-                on: { add: _vm.onAdd }
+                on: {
+                  add: function($event) {
+                    return _vm.onAdd($event, "review")
+                  }
+                }
               },
               _vm._l(_vm.reviewTasks, function(task) {
                 return _c(
@@ -41966,7 +41985,11 @@ var render = function() {
                   options: { animation: 200, group: "status" },
                   elements: "div"
                 },
-                on: { add: _vm.onAdd }
+                on: {
+                  add: function($event) {
+                    return _vm.onAdd($event, "done")
+                  }
+                }
               },
               _vm._l(_vm.doneTasks, function(task) {
                 return _c(
@@ -57828,8 +57851,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laravel\task\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laravel\task\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! c:\laravel\task\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! c:\laravel\task\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
