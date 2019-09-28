@@ -3,84 +3,87 @@
     <div class="container mb-4">
       <div class="row">
         <div class="col-12">
+          <div class="alert alert-primary" role="alert" v-if="noTask">
+            You have no tasks. Create a task by clicking the "Add Task" button below.
+          </div>
           <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addTask">Add Task</button>
         </div>
       </div>
     </div>
     <div class="container">
       <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-3 mb-4">
             <div class="font-weight-bold mb-3">Todo</div>
 
-              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'div'" class="p-3 todoBox overflow-auto" @add="onAdd($event, 'todo')">
-                <div class="card mb-3" v-for="(task, index) in todoTasks" :key="task.id" :data-id="task.id">
-                  <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
-
-                  <div class="card-body">
-                      <p class="card-text">{{ task.description }}</p>
-                      <div><span class="text-primary"><i class="fa fa-eye" style="font-size:24px"></i></span>
-                      <span class="float-right" @click="deleteTask(task.id)"><i class="fa fa-trash" style="font-size:24px;color:red"></i></span></div>
-                  </div> 
-                </div>
+              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'ul'" class="list-group p-3 todoBox overflow-auto" @add="onAdd($event, 'todo')">
+                <li class="list-group-item mb-2" v-for="(task, index) in todoTasks" :key="task.id" :data-id="task.id">
+                  <h6 class="font-weight-bold">{{ task.title }}</h6>
+                  <hr>
+                  <div>
+                    <span class="text-secondary"><small><i class="fa fa-clock-o" aria-hidden="true"></i> {{ task.dueDate}}</small></span>
+                    <span class="float-right text-secondary">
+                      <i class="fa fa-eye mr-2" style="font-size:14px"  data-toggle="tooltip" data-placement="bottom" title="View Task"></i>
+                      <i class="fa fa-trash" style="font-size:14px" @click="deleteTask(task.id)"></i>
+                    </span>
+                  </div>
+                </li>
               </draggable>
 
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-3 mb-4">
             <div class="font-weight-bold mb-3">Ongoing</div>
 
-              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'div'" class="p-3 todoBox overflow-auto" @add="onAdd($event, 'ongoing')">
-                <div class="card mb-3" v-for="task in ongoingTasks" :key="task.id" :data-id="task.id">
-                  <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
-
-                  <div class="card-body">
-                      <p class="card-text">{{ task.description }}</p>
-                      <div><span class="text-primary"><i class="fa fa-eye" style="font-size:24px"></i></span>
-                      <span class="float-right" @click="deleteTask(task.id)"><i class="fa fa-trash" style="font-size:24px;color:red"></i></span></div>
+              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'ul'" class="list-group p-3 todoBox overflow-auto" @add="onAdd($event, 'ongoing')">
+                <li class="list-group-item mb-2" v-for="(task, index) in ongoingTasks" :key="task.id" :data-id="task.id">
+                  <h6 class="font-weight-bold">{{ task.title }}</h6>
+                  <hr>
+                  <div>
+                    <span class="text-secondary"><small><i class="fa fa-clock-o" aria-hidden="true"></i> {{ task.dueDate}}</small></span>
+                    <span class="float-right text-secondary">
+                      <i class="fa fa-eye mr-2" style="font-size:14px"  data-toggle="tooltip" data-placement="bottom" title="View Task"></i>
+                      <i class="fa fa-trash" style="font-size:14px" @click="deleteTask(task.id)"></i>
+                    </span>
                   </div>
-                </div>
+                </li>
               </draggable>
 
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-3 mb-4">
             <div class="font-weight-bold mb-3">Review</div>
 
-              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'div'" class="p-3 todoBox overflow-auto" @add="onAdd($event, 'review')">
-                <div class="card mb-3" v-for="task in reviewTasks" :key="task.id" :data-id="task.id">
-                  <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
-
-                  <div class="card-body">
-                      <p class="card-text">{{ task.description }}</p>
-                      <div><span class="text-primary"><i class="fa fa-eye" style="font-size:24px"></i></span>
-                      <span class="float-right" @click="deleteTask(task.id)"><i class="fa fa-trash" style="font-size:24px;color:red"></i></span></div>
+              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'ul'" class="list-group p-3 todoBox overflow-auto" @add="onAdd($event, 'review')">
+                <li class="list-group-item mb-2" v-for="(task, index) in reviewTasks" :key="task.id" :data-id="task.id">
+                  <h6 class="font-weight-bold">{{ task.title }}</h6>
+                  <hr>
+                  <div>
+                    <span class="text-secondary"><small><i class="fa fa-clock-o" aria-hidden="true"></i> {{ task.dueDate}}</small></span>
+                    <span class="float-right text-secondary">
+                      <i class="fa fa-eye mr-2" style="font-size:14px"  data-toggle="tooltip" data-placement="bottom" title="View Task"></i>
+                      <i class="fa fa-trash" style="font-size:14px" @click="deleteTask(task.id)"></i>
+                    </span>
                   </div>
-                </div>
+                </li>
               </draggable>
 
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-3 mb-4">
             <div class="font-weight-bold mb-3">Done</div>
 
-            <!-- <ul class="list-group">
-              <li class="list-group-item mb-4" v-for="task in tasks" :key="task.id">
-                <h6>{{ task.title }}</h6>
-                <p>{{ task.description }}</p>
-
-              </li>
-            </ul> -->
-
-              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'div'" class="p-3 todoBox overflow-auto" @add="onAdd($event, 'done')">
-                <div class="card mb-3" v-for="task in doneTasks" :key="task.id" :data-id="task.id">
-                  <div class="card-header"><span class="font-weight-bold">{{ task.title }}</span><small class="float-right"><strong>Due:</strong> {{ task.dueDate}}</small></div>
-
-                  <div class="card-body">
-                      <p class="card-text">{{ task.description }}</p>
-                      <div><span class="text-primary"><i class="fa fa-eye" style="font-size:24px"></i></span>
-                      <span class="float-right" @click="deleteTask(task.id)"><i class="fa fa-trash" style="font-size:24px;color:red"></i></span></div>
+              <draggable :lists="tasks" :options="{animation:200, group:'status'}" :elements="'ul'" class="list-group p-3 todoBox overflow-auto" @add="onAdd($event, 'done')">
+                <li class="list-group-item mb-2" v-for="(task, index) in doneTasks" :key="task.id" :data-id="task.id">
+                  <h6 class="font-weight-bold">{{ task.title }}</h6>
+                  <hr>
+                  <div>
+                    <span class="text-secondary"><small><i class="fa fa-clock-o" aria-hidden="true"></i> {{ task.dueDate}}</small></span>
+                    <span class="float-right text-secondary">
+                      <i class="fa fa-eye mr-2" style="font-size:14px"  data-toggle="tooltip" data-placement="bottom" title="View Task"></i>
+                      <i class="fa fa-trash" style="font-size:14px" @click="deleteTask(task.id)"></i>
+                    </span>
                   </div>
-                </div>
+                </li>
               </draggable>
 
           </div>
@@ -150,7 +153,8 @@ import draggable from 'vuedraggable'
               title: '',
               description: '',
               dueDate: '',
-              status: ''
+              status: '',
+              noTask: false
             }
         },
         mounted() {
@@ -158,6 +162,10 @@ import draggable from 'vuedraggable'
             .then((response)=> {
                 console.log(response.data)
                 this.tasks = response.data
+
+                if( this.tasks.length === 0) {
+                  this.alert = true
+                }
 
                 for(var i=0; i < this.tasks.length; i++){
                   if(this.tasks[i].status == "todo"){
@@ -186,7 +194,7 @@ import draggable from 'vuedraggable'
 
             axios.get('/api/user')
             .then((response)=> {
-                console.log(response.data)
+                // console.log(response.data)
                 this.user = response.data
             })
         },
@@ -203,7 +211,8 @@ import draggable from 'vuedraggable'
 
             axios.post( url, data, { headers: {'Content-Type': 'application/json'}})
             .then((response)=>{
-              console.log("Everything works")
+              // console.log("Everything works")
+              window.location.reload()
             })
 
           },
@@ -236,7 +245,8 @@ import draggable from 'vuedraggable'
   background: #fff;
   border: 0.5px solid whitesmoke;
   border-radius: 5px;
-  box-shadow: 0px -1px 0px 2px whitesmoke;
+  /* box-shadow: 0px -1px 0px 2px whitesmoke; */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   height: 70vh;
 }
 
