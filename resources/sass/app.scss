@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
 
 // Variables
 @import 'variables';
@@ -7,6 +7,176 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 body {
     background: #fff;
 }
+
+i.fa {
+    font-size: 16px
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.428571429;
+}
+
+.header {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background: #3498DB;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+
+    .logo {
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    #menu-action {
+        display: block;
+        float: left;
+        width: 60px;
+        height: 50px;
+        line-height: 50px;
+        margin-right: 15px;
+        color: #fff;
+        text-decoration: none;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.15);
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        -webkit-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+
+        i {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        span {
+            width: 0px;
+            display: none;
+            overflow: hidden;
+            -webkit-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+        }
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        &.active {
+            // width: 250px;
+            -webkit-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+
+            span {
+                display: inline;
+                width: auto;
+                -webkit-transition: all .2s ease-in-out;
+                transition: all .2s ease-in-out;
+            }
+        }
+    }
+}
+
+.sidebar {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 50px;
+    height: 100%;
+    width: 60px;
+    background: #3498DB;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+
+    &:hover,
+    &.active,
+    &.hovered {
+        width: 180px;
+        -webkit-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            display: block;
+
+            .links {
+                display: block;
+                position: relative;
+                white-space: nowrap;
+                overflow: hidden;
+                // border-bottom: 1px solid #ddd;
+                color: #fff;
+                text-align: left;
+
+                i {
+                    display: inline-block;
+                    width: 60px;
+                    height: 60px;
+                    line-height: 60px;
+                    text-align: center;
+                    -webkit-animation-duration: .7s;
+                    -moz-animation-duration: .7s;
+                    -o-animation-duration: .7s;
+                    animation-duration: .7s;
+                    -webkit-animation-fill-mode: both;
+                    -moz-animation-fill-mode: both;
+                    -o-animation-fill-mode: both;
+                    animation-fill-mode: both;
+                }
+
+                span {
+                    display: inline-block;
+                    height: 60px;
+                    line-height: 60px;
+                }
+
+                &:hover {
+                    background-color: #fff;
+                    color: #3498DB;
+                }
+            }
+        }
+    }
+}
+
+.dropdown {
+    list-style-type: none !important;
+
+    a {
+        text-decoration: none;
+    }
+    
+}
+
+.dropdown-menu {
+    padding: 0px !important;
+}
+
+.dropdown-item {
+    padding: 0px !important;
+    text-align: center;
+    margin: 0px !important;
+}
+

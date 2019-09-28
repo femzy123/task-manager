@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/tasks', 'HomeController@index');
+Route::get('/dashboard', 'HomeController@dashboard');
 Route::resource('api/tasks', 'TasksController');
 Route::get('api/user', 'HomeController@authenticated');
 Route::get('api/user/tasks/{user_id}', 'TasksController@authenticatedTask');

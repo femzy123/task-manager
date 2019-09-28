@@ -26,6 +26,11 @@ class HomeController extends Controller
         return view('task');
     }
 
+    public function dashboard()
+    {
+        return view('dashboard');
+    }
+
     public function authenticated()
     {
         $user = auth()->user();

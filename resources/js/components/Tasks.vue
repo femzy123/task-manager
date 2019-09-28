@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <div class="container mb-4">
       <div class="row">
         <div class="col-12">
@@ -90,11 +91,6 @@
       </div>
     </div>
 
-    <!-- Button trigger modal -->
-    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTask">
-      Launch demo modal
-    </button> -->
-
     <!-- Modal -->
     <div class="modal fade" id="addTask" tabindex="-1" role="dialog" aria-labelledby="addTaskTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -129,9 +125,9 @@
         </div>
       </div>
     </div>
+
+
   </div>
-  
-    
 </template>
 
 <script>

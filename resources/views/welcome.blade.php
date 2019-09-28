@@ -9,7 +9,7 @@
 				<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 				<link rel="manifest" href="/site.webmanifest">
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Styles -->
@@ -23,7 +23,6 @@
                 height: 100%;
                 display: block;
                 color: #fff;
-                font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 margin: 0;
             }
