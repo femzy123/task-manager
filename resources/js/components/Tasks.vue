@@ -239,7 +239,6 @@ import draggable from 'vuedraggable'
 <style scoped>
 .todoBox {
   background: #fff;
-  border: 0.5px solid whitesmoke;
   border-radius: 5px;
   /* box-shadow: 0px -1px 0px 2px whitesmoke; */
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
