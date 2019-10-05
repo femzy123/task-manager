@@ -23,7 +23,7 @@
                   <div>
                     <span class="text-secondary"><small><i class="fa fa-clock-o" aria-hidden="true"></i> {{ task.dueDate}}</small></span>
                     <span class="float-right text-secondary">
-                      <i class="fa fa-eye mr-2" style="font-size:14px"  data-toggle="tooltip" data-placement="bottom" title="View Task"></i>
+                      <i class="fa fa-eye mr-2" style="font-size:14px" @click="show(task.id)" data-toggle="modal" data-target="#showTask"></i>
                       <i class="fa fa-trash" style="font-size:14px" @click="deleteTask(task.id)"></i>
                     </span>
                   </div>
@@ -42,7 +42,7 @@
                   <div>
                     <span class="text-secondary"><small><i class="fa fa-clock-o" aria-hidden="true"></i> {{ task.dueDate}}</small></span>
                     <span class="float-right text-secondary">
-                      <i class="fa fa-eye mr-2" style="font-size:14px"  data-toggle="tooltip" data-placement="bottom" title="View Task"></i>
+                      <i class="fa fa-eye mr-2" style="font-size:14px" @click="show(task.id)" data-toggle="modal" data-target="#showTask"></i>
                       <i class="fa fa-trash" style="font-size:14px" @click="deleteTask(task.id)"></i>
                     </span>
                   </div>
@@ -61,7 +61,7 @@
                   <div>
                     <span class="text-secondary"><small><i class="fa fa-clock-o" aria-hidden="true"></i> {{ task.dueDate}}</small></span>
                     <span class="float-right text-secondary">
-                      <i class="fa fa-eye mr-2" style="font-size:14px"  data-toggle="tooltip" data-placement="bottom" title="View Task"></i>
+                      <i class="fa fa-eye mr-2" style="font-size:14px" @click="show(task.id)" data-toggle="modal" data-target="#showTask"></i>
                       <i class="fa fa-trash" style="font-size:14px" @click="deleteTask(task.id)"></i>
                     </span>
                   </div>
@@ -80,7 +80,7 @@
                   <div>
                     <span class="text-secondary"><small><i class="fa fa-clock-o" aria-hidden="true"></i> {{ task.dueDate}}</small></span>
                     <span class="float-right text-secondary">
-                      <i class="fa fa-eye mr-2" style="font-size:14px"  data-toggle="tooltip" data-placement="bottom" title="View Task"></i>
+                      <i class="fa fa-eye mr-2" style="font-size:14px" @click="show(task.id)" data-toggle="modal" data-target="#showTask"></i>
                       <i class="fa fa-trash" style="font-size:14px" @click="deleteTask(task.id)"></i>
                     </span>
                   </div>
@@ -126,6 +126,25 @@
       </div>
     </div>
 
+    <!-- Show modal -->
+    <div class="modal fade" id="showTask" tabindex="-1" role="dialog" aria-labelledby="showTaskTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="showTaskTitle">{{ task.title }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{ task.description }}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -136,101 +155,108 @@ import draggable from 'vuedraggable'
 
     export default {
       components: {
-            draggable,
-        },
-        data() {
-            return {
-              user: [],
-              tasks: [],
-              todoTasks:[],
-              ongoingTasks:[],
-              reviewTasks:[],
-              doneTasks:[],
-              title: '',
-              description: '',
-              dueDate: '',
-              status: '',
-              noTask: false
-            }
-        },
-        mounted() {
-            axios.get('/api/tasks')
-            .then((response)=> {
-                console.log(response.data)
-                this.tasks = response.data
-
-                if( this.tasks.length === 0) {
-                  this.alert = true
-                }
-
-                for(var i=0; i < this.tasks.length; i++){
-                  if(this.tasks[i].status == "todo"){
-                    this.todoTasks.push(this.tasks[i])
-                  }
-                }
-
-                for(var i=0; i < this.tasks.length; i++){
-                  if(this.tasks[i].status == "ongoing"){
-                    this.ongoingTasks.push(this.tasks[i])
-                  }
-                }
-
-                for(var i=0; i < this.tasks.length; i++){
-                  if(this.tasks[i].status == "review"){
-                    this.reviewTasks.push(this.tasks[i])
-                  }
-                }
-
-                for(var i=0; i < this.tasks.length; i++){
-                  if(this.tasks[i].status == "done"){
-                    this.doneTasks.push(this.tasks[i])
-                  }
-                }
-            })
-
-            axios.get('/api/user')
-            .then((response)=> {
-                // console.log(response.data)
-                this.user = response.data
-            })
-        },
-        methods: {
-          addTask() {
-            
-            var data = {
-              "user_id": this.user.id,
-              "title": this.title,
-              "description": this.description,
-              "dueDate": this.dueDate
-            }
-            var url ='/api/tasks'
-
-            axios.post( url, data, { headers: {'Content-Type': 'application/json'}})
-            .then((response)=>{
-              // console.log("Everything works")
-              window.location.reload()
-            })
-
-          },
-          deleteTask(id) {
-            axios.delete('/api/tasks/'+ id)
-            .then((response)=>{
-              console.log("deleted")
-            })
-            window.location.reload()
-          
-          },
-          onAdd(event, status) {
-            // console.log(event.item)
-            let id = event.item.getAttribute('data-id')
-            axios.put('/api/tasks/'+ id, {
-              user_id: this.user.id,
-              status: status
-            }, { headers: {'Content-Type': 'application/json'}})
-            .then((response)=> {
-              // console.log("Job well done")
-            })
+        draggable,
+      },
+      data() {
+          return {
+            user: [],
+            tasks: [],
+            todoTasks:[],
+            ongoingTasks:[],
+            reviewTasks:[],
+            doneTasks:[],
+            title: '',
+            description: '',
+            dueDate: '',
+            status: '',
+            noTask: false,
+            task: []
           }
+      },
+      mounted() {
+          axios.get('/api/tasks')
+          .then((response)=> {
+              console.log(response.data)
+              this.tasks = response.data
+
+              if( this.tasks.length === 0) {
+                this.alert = true
+              }
+
+              for(var i=0; i < this.tasks.length; i++){
+                if(this.tasks[i].status == "todo"){
+                  this.todoTasks.push(this.tasks[i])
+                }
+              }
+
+              for(var i=0; i < this.tasks.length; i++){
+                if(this.tasks[i].status == "ongoing"){
+                  this.ongoingTasks.push(this.tasks[i])
+                }
+              }
+
+              for(var i=0; i < this.tasks.length; i++){
+                if(this.tasks[i].status == "review"){
+                  this.reviewTasks.push(this.tasks[i])
+                }
+              }
+
+              for(var i=0; i < this.tasks.length; i++){
+                if(this.tasks[i].status == "done"){
+                  this.doneTasks.push(this.tasks[i])
+                }
+              }
+          })
+
+          axios.get('/api/user')
+          .then((response)=> {
+              // console.log(response.data)
+              this.user = response.data
+          })
+      },
+      methods: {
+        addTask() {
+          
+          var data = {
+            "user_id": this.user.id,
+            "title": this.title,
+            "description": this.description,
+            "dueDate": this.dueDate
+          }
+          var url ='/api/tasks'
+
+          axios.post( url, data, { headers: {'Content-Type': 'application/json'}})
+          .then((response)=>{
+            // console.log("Everything works")
+            window.location.reload()
+          })
+
+        },
+        deleteTask(id) {
+          axios.delete('/api/tasks/'+ id)
+          .then((response)=>{
+            console.log("deleted")
+          })
+          window.location.reload()
+        
+        },
+        onAdd(event, status) {
+          // console.log(event.item)
+          let id = event.item.getAttribute('data-id')
+          axios.put('/api/tasks/'+ id, {
+            user_id: this.user.id,
+            status: status
+          }, { headers: {'Content-Type': 'application/json'}})
+          .then((response)=> {
+            // console.log("Job well done")
+          })
+        },
+        show(id) {
+          axios.get('/api/tasks/'+ id)
+          .then((response)=>{
+            this.task = response.data
+          })
+        }
       }
         
     }

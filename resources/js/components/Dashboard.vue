@@ -1,11 +1,56 @@
 <template>
     <div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="box p-1">
+							<div class="card bg-primary text-white">
+								<div class="card-body">
+									<h5 class="card-title">Task</h5>
+									<p class="card-text">Todo:<span class="float-right">{{ todo - 1 }}</span></p>												
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="box p-1">
+							<div class="card bg-secondary text-white">
+								<div class="card-body">
+									<h5 class="card-title">Task</h5>
+									<p class="card-text">Ongoing:<span class="float-right">{{ ongoing - 1 }}</span></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="box p-1">
+							<div class="card bg-dark text-white">
+								<div class="card-body">
+									<h5 class="card-title">Task</h5>
+									<p class="card-text">Todo<span class="float-right">{{ review - 1 }}</span></p>											
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="box p-1">
+							<div class="card bg-danger text-white">
+								<div class="card-body">
+									<h5 class="card-title">Task</h5>
+									<p class="card-text">Done:<span class="float-right">{{ done - 1 }}</span></p>												
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+					<div class="row">
+							<div class="col-md-8">
+								<div class="box p-5">
 									<h4 class="text-primary">Task List</h4>
 									<p class="text-black-50"><small>Complete these tasks before their due dates.</small></p>
-                  <table class="table table-hover table-sm">
+									<table class="table table-hover table-sm">
 										<thead class="text-primary">
 											<tr>
 												<th scope="col">#</th>
@@ -23,41 +68,31 @@
 											</tr>
 										</tbody>
 									</table>
-
-                </div>
-                <div class="col-md-4 mt-4">
-									<div class="box">
-										<div class="card">
-											<div class="card-body">
-												<h5 class="card-title">Tasks</h5>
-												<BarChart
-													:chart-data="chartData"
-													/>																
-											</div>
-										</div>
-									</div>
-									<div class="box">
-										<div class="card">
-											<div class="card-body">
-												<h5 class="card-title">Tasks</h5>																
-													<canvas id="myChart" width="400" height="400"></canvas>
-											</div>
-										</div>
-									</div>
-									<div class="box">
-										<div class="card">
-											<div class="card-body">
-												<h5 class="card-title">Task Status</h5>
-												<p class="card-text"><small>Todo:<span class="float-right">{{ todo - 1 }}</span></small></p>
-												<p class="card-text"><small>Ongoing:<span class="float-right">{{ ongoing - 1 }}</span></small></p>
-												<p class="card-text"><small>Review:<span class="float-right">{{ review - 1 }}</span></small></p>
-												<p class="card-text"><small>Done:<span class="float-right">{{ done - 1 }}</span></small></p>												
-											</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="box">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="card-title">Tasks</h5>
+											<BarChart
+												:chart-data="chartData"
+												/>																
 										</div>
 									</div>
 								</div>
-            </div>
-        </div>
+								<div class="box">
+									<div class="card">
+										<div class="card-body">
+											<h5 class="card-title">Tasks</h5>																
+												<canvas ref="chart" id="myChart" width="400" height="400"></canvas>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+					</div>
+			</div>
     </div>
 </template>
 
@@ -124,7 +159,8 @@ export default {
 			}
 		},
 		pieChart() {
-			const ctx = document.getElementById('myChart');
+			// const ctx = document.getElementById('myChart');
+			const ctx = this.$refs.chart
 			const myChart = new Chart(ctx, {
 					type: 'doughnut',
 					data: {
@@ -162,4 +198,5 @@ export default {
 		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 		margin-bottom: 1.5rem;
 	}
+	 
 </style>

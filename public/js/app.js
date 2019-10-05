@@ -1938,6 +1938,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1996,7 +2031,8 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     pieChart: function pieChart() {
-      var ctx = document.getElementById('myChart');
+      // const ctx = document.getElementById('myChart');
+      var ctx = this.$refs.chart;
       var myChart = new chart_js__WEBPACK_IMPORTED_MODULE_2___default.a(ctx, {
         type: 'doughnut',
         data: {
@@ -2168,6 +2204,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2186,7 +2241,8 @@ __webpack_require__.r(__webpack_exports__);
       description: '',
       dueDate: '',
       status: '',
-      noTask: false
+      noTask: false,
+      task: []
     };
   },
   mounted: function mounted() {
@@ -2264,6 +2320,13 @@ __webpack_require__.r(__webpack_exports__);
           'Content-Type': 'application/json'
         }
       }).then(function (response) {// console.log("Job well done")
+      });
+    },
+    show: function show(id) {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/tasks/' + id).then(function (response) {
+        _this2.task = response.data;
       });
     }
   }
@@ -21418,7 +21481,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.box[data-v-040e2ab9] {\n\tbackground: #fff;\n\tborder-radius: 5px;\n\tbox-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);\n\tmargin-bottom: 1.5rem;\n}\n", ""]);
+exports.push([module.i, "\n.box[data-v-040e2ab9] {\n\tbackground: #fff;\n\tborder-radius: 5px;\n\tbox-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);\n\tmargin-bottom: 1.5rem;\n}\n \n", ""]);
 
 // exports
 
@@ -74544,35 +74607,109 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("h4", { staticClass: "text-primary" }, [_vm._v("Task List")]),
-          _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _c("table", { staticClass: "table table-hover table-sm" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.tasks, function(task, index) {
-                return _c("tr", { key: task.id }, [
-                  _c("th", { attrs: { scope: "row" } }, [
-                    _vm._v(_vm._s(index + 1))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(task.title))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(task.dueDate))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(task.status))])
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("div", { staticClass: "box p-1" }, [
+            _c("div", { staticClass: "card bg-primary text-white" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Task")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v("Todo:"),
+                  _c("span", { staticClass: "float-right" }, [
+                    _vm._v(_vm._s(_vm.todo - 1))
+                  ])
                 ])
-              }),
-              0
-            )
+              ])
+            ])
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-4 mt-4" }, [
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("div", { staticClass: "box p-1" }, [
+            _c("div", { staticClass: "card bg-secondary text-white" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Task")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v("Ongoing:"),
+                  _c("span", { staticClass: "float-right" }, [
+                    _vm._v(_vm._s(_vm.ongoing - 1))
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("div", { staticClass: "box p-1" }, [
+            _c("div", { staticClass: "card bg-dark text-white" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Task")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v("Todo"),
+                  _c("span", { staticClass: "float-right" }, [
+                    _vm._v(_vm._s(_vm.review - 1))
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("div", { staticClass: "box p-1" }, [
+            _c("div", { staticClass: "card bg-danger text-white" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Task")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v("Done:"),
+                  _c("span", { staticClass: "float-right" }, [
+                    _vm._v(_vm._s(_vm.done - 1))
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "box p-5" }, [
+            _c("h4", { staticClass: "text-primary" }, [_vm._v("Task List")]),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _c("table", { staticClass: "table table-hover table-sm" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.tasks, function(task, index) {
+                  return _c("tr", { key: task.id }, [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v(_vm._s(index + 1))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(task.title))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(task.dueDate))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(task.status))])
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4" }, [
           _c("div", { staticClass: "box" }, [
             _c("div", { staticClass: "card" }, [
               _c(
@@ -74588,50 +74725,15 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
           _c("div", { staticClass: "box" }, [
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v("Task Status")
-                ]),
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Tasks")]),
                 _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _c("small", [
-                    _vm._v("Todo:"),
-                    _c("span", { staticClass: "float-right" }, [
-                      _vm._v(_vm._s(_vm.todo - 1))
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _c("small", [
-                    _vm._v("Ongoing:"),
-                    _c("span", { staticClass: "float-right" }, [
-                      _vm._v(_vm._s(_vm.ongoing - 1))
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _c("small", [
-                    _vm._v("Review:"),
-                    _c("span", { staticClass: "float-right" }, [
-                      _vm._v(_vm._s(_vm.review - 1))
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _c("small", [
-                    _vm._v("Done:"),
-                    _c("span", { staticClass: "float-right" }, [
-                      _vm._v(_vm._s(_vm.done - 1))
-                    ])
-                  ])
-                ])
+                _c("canvas", {
+                  ref: "chart",
+                  attrs: { id: "myChart", width: "400", height: "400" }
+                })
               ])
             ])
           ])
@@ -74662,22 +74764,6 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Due Date")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Status")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("h5", { staticClass: "card-title" }, [_vm._v("Tasks")]),
-          _vm._v(" "),
-          _c("canvas", {
-            attrs: { id: "myChart", width: "400", height: "400" }
-          })
-        ])
       ])
     ])
   }
@@ -74793,9 +74879,13 @@ var render = function() {
                             staticClass: "fa fa-eye mr-2",
                             staticStyle: { "font-size": "14px" },
                             attrs: {
-                              "data-toggle": "tooltip",
-                              "data-placement": "bottom",
-                              title: "View Task"
+                              "data-toggle": "modal",
+                              "data-target": "#showTask"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.show(task.id)
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -74877,9 +74967,13 @@ var render = function() {
                             staticClass: "fa fa-eye mr-2",
                             staticStyle: { "font-size": "14px" },
                             attrs: {
-                              "data-toggle": "tooltip",
-                              "data-placement": "bottom",
-                              title: "View Task"
+                              "data-toggle": "modal",
+                              "data-target": "#showTask"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.show(task.id)
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -74961,9 +75055,13 @@ var render = function() {
                             staticClass: "fa fa-eye mr-2",
                             staticStyle: { "font-size": "14px" },
                             attrs: {
-                              "data-toggle": "tooltip",
-                              "data-placement": "bottom",
-                              title: "View Task"
+                              "data-toggle": "modal",
+                              "data-target": "#showTask"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.show(task.id)
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -75045,9 +75143,13 @@ var render = function() {
                             staticClass: "fa fa-eye mr-2",
                             staticStyle: { "font-size": "14px" },
                             attrs: {
-                              "data-toggle": "tooltip",
-                              "data-placement": "bottom",
-                              title: "View Task"
+                              "data-toggle": "modal",
+                              "data-target": "#showTask"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.show(task.id)
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -75211,6 +75313,51 @@ var render = function() {
           ]
         )
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "showTask",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "showTaskTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    staticClass: "modal-title",
+                    attrs: { id: "showTaskTitle" }
+                  },
+                  [_vm._v(_vm._s(_vm.task.title))]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [_vm._v(_vm._s(_vm.task.description))])
+              ]),
+              _vm._v(" "),
+              _vm._m(2)
+            ])
+          ]
+        )
+      ]
     )
   ])
 }
@@ -75235,6 +75382,38 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
       )
     ])
   }
