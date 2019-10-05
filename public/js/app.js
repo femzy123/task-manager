@@ -1873,6 +1873,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Chart_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Chart.vue */ "./resources/js/components/Chart.vue");
+/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Chart.js");
+/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(chart_js__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -1928,6 +1930,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1936,34 +1947,76 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      tasks: null,
-      chartData: null,
-      loaded: false
+      tasks: "",
+      chartData: "",
+      loaded: false,
+      todo: 1,
+      ongoing: 1,
+      review: 1,
+      done: 1
     };
   },
   mounted: function mounted() {
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/tasks').then(function (response) {
-      _this.tasks = response.data; // this.chartData = response.data
+      _this.tasks = response.data;
+
+      for (var i = 0; i < _this.tasks.length; i++) {
+        if (_this.tasks[i].status === 'done') {
+          _this.done++;
+        } else if (_this.tasks[i].status === 'ongoing') {
+          _this.ongoing++;
+        } else if (_this.tasks[i].status === 'review') {
+          _this.review++;
+        } else {
+          _this.todo++;
+        }
+      }
+
+      _this.pieChart();
+
+      _this.fillData();
     });
-    this.fillData();
     this.loaded = true;
   },
   methods: {
     fillData: function fillData() {
       this.chartData = {
-        labels: [0, 1, 2, 3, 4, 5],
+        labels: ['Todo', 'Ongoing', 'Review', 'Done'],
         datasets: [{
-          label: 'Status',
-          backgroundColor: '#6574cd',
+          label: 'Task Stats',
+          backgroundColor: ['#F44000', '#36A2EB', '#FF9F40', '#89cd5a'],
           borderColor: 'lightblue',
-          pointBAckgroundColor: 'blue',
+          pointBackgroundColor: 'blue',
           borderWidth: 1,
           pointBorderColor: 'blue',
-          data: [0, 1, 2, 3, 4, 5]
+          data: [this.todo, this.ongoing, this.review, this.done]
         }]
       };
+    },
+    pieChart: function pieChart() {
+      var ctx = document.getElementById('myChart');
+      var myChart = new chart_js__WEBPACK_IMPORTED_MODULE_2___default.a(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Todo', 'Ongoing', 'Review', 'Done'],
+          datasets: [{
+            label: 'Task Stats',
+            data: [this.todo, this.ongoing, this.review, this.done],
+            backgroundColor: ['#F44000', '#36A2EB', '#FF9F40', '#89cd5a']
+          }]
+        } // options: {
+        // 		scales: {
+        // 				yAxes: [{
+        // 						ticks: {
+        // 								beginAtZero: true
+        // 						}
+        // 				}]
+        // 		}
+        // }
+
+      });
     }
   }
 });
@@ -74535,7 +74588,53 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(2)
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "box" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v("Task Status")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _c("small", [
+                    _vm._v("Todo:"),
+                    _c("span", { staticClass: "float-right" }, [
+                      _vm._v(_vm._s(_vm.todo - 1))
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _c("small", [
+                    _vm._v("Ongoing:"),
+                    _c("span", { staticClass: "float-right" }, [
+                      _vm._v(_vm._s(_vm.ongoing - 1))
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _c("small", [
+                    _vm._v("Review:"),
+                    _c("span", { staticClass: "float-right" }, [
+                      _vm._v(_vm._s(_vm.review - 1))
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _c("small", [
+                    _vm._v("Done:"),
+                    _c("span", { staticClass: "float-right" }, [
+                      _vm._v(_vm._s(_vm.done - 1))
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
         ])
       ])
     ])
@@ -74573,35 +74672,11 @@ var staticRenderFns = [
     return _c("div", { staticClass: "box" }, [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-body" }, [
-          _c("h5", { staticClass: "card-title" }, [_vm._v("Task Status")]),
+          _c("h5", { staticClass: "card-title" }, [_vm._v("Tasks")]),
           _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _c("small", [
-              _vm._v("Todo:"),
-              _c("span", { staticClass: "float-right" }, [_vm._v("2")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _c("small", [
-              _vm._v("Ongoing:"),
-              _c("span", { staticClass: "float-right" }, [_vm._v("4")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _c("small", [
-              _vm._v("Review:"),
-              _c("span", { staticClass: "float-right" }, [_vm._v("2")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _c("small", [
-              _vm._v("Done:"),
-              _c("span", { staticClass: "float-right" }, [_vm._v("0")])
-            ])
-          ])
+          _c("canvas", {
+            attrs: { id: "myChart", width: "400", height: "400" }
+          })
         ])
       ])
     ])
