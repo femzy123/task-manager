@@ -2230,6 +2230,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -74836,17 +74842,12 @@ var render = function() {
                   )
                 ]
               )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary float-right",
-              attrs: { "data-toggle": "modal", "data-target": "#addTask" }
-            },
-            [_vm._v("Add Task")]
-          )
-        ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1)
       ])
     ]),
     _vm._v(" "),
@@ -75227,7 +75228,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(0),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("form", [
@@ -75376,14 +75377,14 @@ var render = function() {
                   [_vm._v(_vm._s(_vm.task.title))]
                 ),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(3)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("p", [_vm._v(_vm._s(_vm.task.description))])
               ]),
               _vm._v(" "),
-              _vm._m(2)
+              _vm._m(4)
             ])
           ]
         )
@@ -75392,6 +75393,33 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-6" }, [
+      _c("h3", { staticClass: "text-primary" }, [_vm._v("Tasks")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "text-info" }, [
+        _c("small", [_vm._v("Drag and Drop Tasks to change task status.")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-6" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary float-right",
+          attrs: { "data-toggle": "modal", "data-target": "#addTask" }
+        },
+        [_vm._v("Add Task")]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

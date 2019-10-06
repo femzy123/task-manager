@@ -7,6 +7,12 @@
           <div class="alert alert-primary" role="alert" v-if="noTask">
             You have no tasks. Create a task by clicking the "Add Task" button below.
           </div>
+        </div>
+        <div class="col-6">
+          <h3 class="text-primary">Tasks</h3>
+          <p class="text-info"><small>Drag and Drop Tasks to change task status.</small></p>
+        </div>
+        <div class="col-6">
           <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addTask">Add Task</button>
         </div>
       </div>
