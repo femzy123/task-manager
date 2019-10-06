@@ -48,8 +48,14 @@
 					<div class="row">
 							<div class="col-md-8">
 								<div class="box p-5">
-									<h4 class="text-primary">Task List</h4>
-									<p class="text-black-50"><small>Complete these tasks before their due dates.</small></p>
+									<div class="row">
+										<div class="col-6">
+											<h4 class="text-primary">Task List</h4>
+											<p class="text-black-50"><small>Complete these tasks before their due dates.</small></p>
+										</div>
+										<div class="col-6 text-right"><a href="/tasks"><i class="fa fa-plus-circle text-primary" style="font-size: 36px"></i></a></div>
+									</div>
+									
 									<table class="table table-hover table-sm">
 										<thead class="text-primary">
 											<tr>
@@ -59,12 +65,12 @@
 												<th scope="col">Status</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody class="text-primary">
 											<tr v-for="(task, index) in tasks" :key="task.id">
 												<th scope="row">{{ index + 1 }}</th>
-												<td>{{ task.title }}</td>
+												<td class="text-capitalize">{{ task.title }}</td>
 												<td>{{ task.dueDate }}</td>
-												<td>{{ task.status }}</td>
+												<td class="text-capitalize" :class="statusColor">{{ task.status }}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -111,7 +117,8 @@ export default {
 			todo: 1,
 			ongoing: 1,
 			review: 1,
-			done: 1
+			done: 1,
+			statusColor: "text-warning"
 		}
 	},
 	mounted() {
@@ -130,6 +137,7 @@ export default {
 							this.todo++
 						}
 					}
+
 						this.pieChart()
 						this.fillData()
 				})

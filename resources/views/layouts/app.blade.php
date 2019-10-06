@@ -70,7 +70,7 @@
         </span>
       </div>
     </div>
-    <div class="sidebar">
+    <div class="sidebar mr-4">
       <ul>
           <li><a class="links" href="{{ url('/dashboard') }}"><i class="fa fa-desktop"></i><span>Dashboard</span></a></li>
           <li><a class="links" href="{{ url('/tasks') }}"><i class="fa fa-server"></i><span>Tasks</span></a></li>

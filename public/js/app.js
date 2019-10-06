@@ -1973,6 +1973,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1988,7 +1994,8 @@ __webpack_require__.r(__webpack_exports__);
       todo: 1,
       ongoing: 1,
       review: 1,
-      done: 1
+      done: 1,
+      statusColor: "text-warning"
     };
   },
   mounted: function mounted() {
@@ -74681,8 +74688,6 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-8" }, [
           _c("div", { staticClass: "box p-5" }, [
-            _c("h4", { staticClass: "text-primary" }, [_vm._v("Task List")]),
-            _vm._v(" "),
             _vm._m(0),
             _vm._v(" "),
             _c("table", { staticClass: "table table-hover table-sm" }, [
@@ -74690,17 +74695,27 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
+                { staticClass: "text-primary" },
                 _vm._l(_vm.tasks, function(task, index) {
                   return _c("tr", { key: task.id }, [
                     _c("th", { attrs: { scope: "row" } }, [
                       _vm._v(_vm._s(index + 1))
                     ]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(task.title))]),
+                    _c("td", { staticClass: "text-capitalize" }, [
+                      _vm._v(_vm._s(task.title))
+                    ]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(task.dueDate))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(task.status))])
+                    _c(
+                      "td",
+                      {
+                        staticClass: "text-capitalize",
+                        class: _vm.statusColor
+                      },
+                      [_vm._v(_vm._s(task.status))]
+                    )
                   ])
                 }),
                 0
@@ -74747,8 +74762,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "text-black-50" }, [
-      _c("small", [_vm._v("Complete these tasks before their due dates.")])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-6" }, [
+        _c("h4", { staticClass: "text-primary" }, [_vm._v("Task List")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "text-black-50" }, [
+          _c("small", [_vm._v("Complete these tasks before their due dates.")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-6 text-right" }, [
+        _c("a", { attrs: { href: "/tasks" } }, [
+          _c("i", {
+            staticClass: "fa fa-plus-circle text-primary",
+            staticStyle: { "font-size": "36px" }
+          })
+        ])
+      ])
     ])
   },
   function() {

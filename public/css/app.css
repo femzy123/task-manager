@@ -10802,3 +10802,9 @@ p {
   margin: 0px !important;
 }
 
+@media screen and (max-width: 960px) {
+  main {
+    margin-left: 3.5rem;
+  }
+}
+
